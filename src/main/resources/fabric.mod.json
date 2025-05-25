@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "fishmod",
+	"version": "${version}",
+	"name": "Fish Mod",
+	"description": "The Fish calleth out thyne name. Praise be to the Fish",
+	"authors": [
+		"bokkbokk"
+	],
+	"contact": {
+		"homepage": "https://bokkbokk.github.io",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/fishmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.bokkbokk.fishmod.FishMod"
+		],
+		"fabric-datagen": [
+			"net.bokkbokk.fishmod.FishModDataGenerator"
+		],
+		"client" : [
+			"net.bokkbokk.fishmod.FishModClient"
+		]
+	},
+	"mixins": [
+		"fishmod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
