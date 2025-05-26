@@ -2,7 +2,9 @@ package net.bokkbokk.fishmod.item.custom;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -56,14 +58,21 @@ public class FishGemDustItem extends Item {
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         user.sendMessage(Text.literal("You used Fish Gem Dust on " + entity.getName().getString()), true);
+        entity.getWorld().sendEntityStatus(entity, EntityStatuses.ADD_PORTAL_PARTICLES);
+
+
+
         if (entity instanceof PlayerEntity) {
             return ActionResult.PASS; // Prevents using on players
         }
-        if (entity.isAlive() && !entity.isInvulnerable()) {
+        if (entity.isAlive() && !entity.isInvulnerable() && !(entity instanceof HostileEntity) ) {
             entity.heal(3.0F); // Heals the entity by 3 health points
+            ((AnimalEntity) entity).setLoveTicks(100);
             stack.decrement(1);
             if (entity.isBaby()) {
-                ((AnimalEntity) entity).growUp(10); // Makes the entity an adult if it was a baby
+
+                ((AnimalEntity) entity).growUp(10);
+                ((AnimalEntity) entity).setBaby(false);
             }
             // Here you can add any specific effects you want to apply to the entity
             // For example, you could heal the entity or apply a potion effect
@@ -72,4 +81,5 @@ public class FishGemDustItem extends Item {
 
         return super.useOnEntity(stack, user, entity, hand);
     }
+
 }
