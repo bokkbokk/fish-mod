@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+    "category": "misc",
+  "key": {
+    "#": {
+      "item": "fishmod:processed_fish_gems"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+    "result": {
+        "count": 1,
+        "id": "fishmod:fish_gem_block"
+    }
+}

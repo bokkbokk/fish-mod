@@ -1,5 +1,8 @@
 package net.bokkbokk.fishmod;
 
+import net.bokkbokk.fishmod.block.ModBlocks;
+import net.bokkbokk.fishmod.item.ModItemGroups;
+import net.bokkbokk.fishmod.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -22,6 +25,9 @@ public class FishMod implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+		ModItems.registerModItems();
+		ModBlocks.registerModBlocks();
+		ModItemGroups.registerItemGroups();
 	}
 
 
