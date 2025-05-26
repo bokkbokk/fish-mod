@@ -21,6 +21,7 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.FISH_GEMS);
                         entries.add(ModItems.PROCESSED_FISH_GEMS);
+                        entries.add(ModItems.FISH_GEM_DUST);
 
                     })
 

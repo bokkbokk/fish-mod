@@ -20,7 +20,7 @@ public class ModItems {
 
     public static final Item FISH_GEMS = registerItem("fish_gems", new Item(new Item.Settings()));
 
-    public static final Item FISH_GEM_DUST = registerItem("fish_gem_dust", new FishGemDustItem(new Item.Settings().maxDamage(300)));
+    public static final Item FISH_GEM_DUST = registerItem("fish_gem_dust", new FishGemDustItem(new Item.Settings()));
 
 
     private static Item registerItem(String name, Item item){

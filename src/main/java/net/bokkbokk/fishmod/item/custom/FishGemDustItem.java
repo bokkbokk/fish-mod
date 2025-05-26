@@ -1,11 +1,14 @@
 package net.bokkbokk.fishmod.item.custom;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -52,6 +55,20 @@ public class FishGemDustItem extends Item {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        user.sendMessage(Text.literal("You used Fish Gem Dust on " + entity.getName().getString()), true);
+        if (entity instanceof PlayerEntity) {
+            return ActionResult.PASS; // Prevents using on players
+        }
+        if (entity.isAlive() && !entity.isInvulnerable()) {
+            entity.heal(3.0F); // Heals the entity by 3 health points
+            stack.decrement(1);
+            if (entity.isBaby()) {
+                ((AnimalEntity) entity).growUp(10); // Makes the entity an adult if it was a baby
+            }
+            // Here you can add any specific effects you want to apply to the entity
+            // For example, you could heal the entity or apply a potion effect
+            // entity.heal(5.0F); // Example: Heal the entity by 5 health points
+        }
 
         return super.useOnEntity(stack, user, entity, hand);
     }
