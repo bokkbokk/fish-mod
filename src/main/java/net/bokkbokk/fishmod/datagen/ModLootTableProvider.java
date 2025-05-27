@@ -28,6 +28,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         addDrop(ModBlocks.FISH_GEM_BLOCK);
+        addDrop(ModBlocks.EYE_BLOCK);
 
         addDrop(ModBlocks.FISH_ORE_BLOCK, multipleOreDrops(ModBlocks.FISH_ORE_BLOCK,ModItems.FISH_GEMS,1,3 ));
     }

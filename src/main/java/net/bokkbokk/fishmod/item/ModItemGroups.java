@@ -34,6 +34,7 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModBlocks.FISH_GEM_BLOCK);
                         entries.add(ModBlocks.FISH_ORE_BLOCK);
+                        entries.add(ModBlocks.EYE_BLOCK);
 
                     })
 

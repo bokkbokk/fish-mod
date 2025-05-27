@@ -1,0 +1,25 @@
+{
+  "type": "fishmod:fish_dim_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "minecraft:large_biomes",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biome": "minecraft:ocean",
+      "biomes": [
+        {
+          "biome": "minecraft:warm_ocean",
+          "parameters": {
+            "temperature": 0.01,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 2,
+            "offset": 0.2
+          }
+        }
+      ]
+    }
+  }
+}

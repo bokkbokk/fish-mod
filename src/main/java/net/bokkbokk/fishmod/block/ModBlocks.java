@@ -22,10 +22,21 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().strength(4f)
                     .requiresTool().sounds(BlockSoundGroup.AMETHYST_BLOCK)));
 
+//    public static final Block EYE_BLOCK = registerBlock("eye_block",
+//            new Block(AbstractBlock.Settings.create().strength(1f)
+//                    .requiresTool().sounds(BlockSoundGroup.HONEY)));
+
     public static final Block FISH_ORE_BLOCK = registerBlock("fish_ore_block",
             new ColoredFallingBlock(
                     new ColorCode(14406560),
                     AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.SAND)
+            )
+    );
+
+    public static final Block EYE_BLOCK = registerBlock("eye_block",
+            new ColoredFallingBlock(
+                    new ColorCode(14406560),
+                    AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.HONEY)
             )
     );
 

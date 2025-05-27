@@ -17,6 +17,7 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.FISH_GEM_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.FISH_ORE_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EYE_BLOCK);
 
 
     }

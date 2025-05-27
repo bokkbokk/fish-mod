@@ -5,6 +5,7 @@
 
   "block.fishmod.fish_gem_block": "Fish Gem Block",
   "block.fishmod.fish_ore_block": "Buried Fish Gems",
+  "block.fishmod.eye_block": "The EYE",
 
   "itemGroup.fishmod.fish_item_group": "Fish Items",
   "itemGroup.fishmod.fish_blocks_group": "Fish Blocks"
