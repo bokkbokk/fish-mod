@@ -23,6 +23,9 @@
 		],
 		"client" : [
 			"net.bokkbokk.fishmod.FishModClient"
+		],
+		"terrablender": [
+			"net.bokkbokk.fishmod.world.biome.ModTerrablenderAPI"
 		]
 	},
 	"mixins": [

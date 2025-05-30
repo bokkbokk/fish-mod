@@ -1,12 +1,11 @@
 package net.bokkbokk.fishmod.block;
 
 import net.bokkbokk.fishmod.FishMod;
+import net.bokkbokk.fishmod.block.custom.FishPortalBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.ColoredFallingBlock;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -39,6 +38,28 @@ public class ModBlocks {
                     AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.HONEY)
             )
     );
+
+//    public static final Block FISH_PORTAL_BLOCK = registerBlock("fish_portal_block",
+//            new FishPortalBlock(AbstractBlock.Settings.create().strength(99f)
+//                    .requiresTool().sounds(BlockSoundGroup.AMETHYST_BLOCK).noCollision()));
+
+
+    public static final Block FISH_PORTAL_BLOCK = registerBlock(
+            "fish_portal_block",
+            new FishPortalBlock(
+                    AbstractBlock.Settings.create()
+                            .mapColor(MapColor.WATER_BLUE)
+                            .noCollision()
+                            .luminance(state -> 15)
+                            .strength(-1.0F, 3600000.0F)
+                            .dropsNothing()
+                            .pistonBehavior(PistonBehavior.BLOCK)
+            )
+    );
+
+
+
+
 
 
 

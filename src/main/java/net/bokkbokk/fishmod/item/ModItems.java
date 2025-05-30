@@ -12,6 +12,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 
 public class ModItems {
 
@@ -21,6 +22,18 @@ public class ModItems {
     public static final Item FISH_GEMS = registerItem("fish_gems", new Item(new Item.Settings()));
 
     public static final Item FISH_GEM_DUST = registerItem("fish_gem_dust", new FishGemDustItem(new Item.Settings()));
+
+
+
+
+    //putting dim in here for whatever reason  ------ nvm
+
+    //public static final World FISH_DIM = Registry.register(Registries.)
+
+    //eeeeee
+
+
+
 
 
     private static Item registerItem(String name, Item item){

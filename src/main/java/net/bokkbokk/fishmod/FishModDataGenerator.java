@@ -3,6 +3,7 @@ package net.bokkbokk.fishmod;
 import net.bokkbokk.fishmod.datagen.*;
 import net.bokkbokk.fishmod.world.ModConfiguredFeatures;
 import net.bokkbokk.fishmod.world.ModPlacedFeatures;
+import net.bokkbokk.fishmod.world.biome.ModBiomes;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
@@ -24,6 +25,8 @@ public class FishModDataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(RegistryBuilder registryBuilder) {
 		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
+		//registryBuilder.addRegistry(RegistryKeys.BIOME, ModBiomes::bootstrap);
+
 
 
 	}
