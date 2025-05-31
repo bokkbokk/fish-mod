@@ -2,6 +2,7 @@ package net.bokkbokk.fishmod.block;
 
 import net.bokkbokk.fishmod.FishMod;
 import net.bokkbokk.fishmod.block.custom.FishPortalBlock;
+import net.bokkbokk.fishmod.block.custom.TheEyeBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -33,11 +34,13 @@ public class ModBlocks {
     );
 
     public static final Block EYE_BLOCK = registerBlock("eye_block",
-            new ColoredFallingBlock(
+            new TheEyeBlock(
                     new ColorCode(14406560),
-                    AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.HONEY)
+                    AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.HONEY).luminance(state -> 15)
             )
     );
+
+
 
 //    public static final Block FISH_PORTAL_BLOCK = registerBlock("fish_portal_block",
 //            new FishPortalBlock(AbstractBlock.Settings.create().strength(99f)

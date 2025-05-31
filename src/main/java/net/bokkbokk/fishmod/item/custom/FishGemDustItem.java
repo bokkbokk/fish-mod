@@ -65,7 +65,7 @@ public class FishGemDustItem extends Item {
         if (entity instanceof PlayerEntity) {
             return ActionResult.PASS; // Prevents using on players
         }
-        if (entity.isAlive() && !entity.isInvulnerable() && !(entity instanceof HostileEntity) ) {
+        if (entity.isAlive() && !entity.isInvulnerable() && !(entity instanceof HostileEntity) && (entity instanceof AnimalEntity)  ) {
             entity.heal(3.0F); // Heals the entity by 3 health points
             ((AnimalEntity) entity).setLoveTicks(100);
             stack.decrement(1);
