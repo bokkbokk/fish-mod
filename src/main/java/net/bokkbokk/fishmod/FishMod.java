@@ -211,7 +211,7 @@ public class FishMod implements ModInitializer {
 				.tintColor(3,177,252)
 				.flatPortal()
 
-				.setPortalSearchYRange(40,60)
+				.setPortalSearchYRange(40,115)
 				.registerIgniteEvent((player, world, portalPos,framePos,ignitionSource) -> {
 					//if (world.isClient()) {
 						world.playSound(

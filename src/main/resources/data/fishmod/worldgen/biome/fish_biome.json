@@ -39,23 +39,23 @@
         "type": "cod",
         "weight": 30,
         "minCount": 4,
-        "maxCount": 4
+        "maxCount": 6
       },
       {
         "type": "salmon",
-        "weight": 20,
+        "weight": 30,
         "minCount": 4,
-        "maxCount": 4
+        "maxCount": 6
       },
       {
         "type": "tropical_fish",
-        "weight": 20,
+        "weight": 30,
         "minCount": 4,
         "maxCount": 4
       },
       {
         "type": "pufferfish",
-        "weight": 5,
+        "weight": 10,
         "minCount": 1,
         "maxCount": 1
       }
