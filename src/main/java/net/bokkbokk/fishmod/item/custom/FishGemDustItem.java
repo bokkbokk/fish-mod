@@ -1,6 +1,10 @@
 package net.bokkbokk.fishmod.item.custom;
 
+import net.bokkbokk.fishmod.sound.ModSounds;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.GrassBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
@@ -10,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -32,6 +37,7 @@ public class FishGemDustItem extends Item {
         World world = context.getWorld();
         BlockPos blockPos = context.getBlockPos();
         BlockPos blockPos2 = blockPos.offset(context.getSide());
+
         if (useOnFertilizable(context.getStack(), world, blockPos)) {
             if (!world.isClient) {
                 context.getPlayer().emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
@@ -40,6 +46,26 @@ public class FishGemDustItem extends Item {
 
             return ActionResult.success(world.isClient);
         } else {
+
+            if (world.getBlockState(blockPos).getBlock().equals(Blocks.DIRT)) {
+                if (!world.isClient) {
+                    world.playSound(null, blockPos, ModSounds.FISH_DUST_USE, SoundCategory.AMBIENT);
+                    world.setBlockState(blockPos, Blocks.GRASS_BLOCK.getDefaultState());
+                    context.getStack().decrement(1);
+                }
+                context.getPlayer().swingHand(context.getHand());
+
+            }
+            if (world.getBlockState(blockPos).getBlock().equals(Blocks.COARSE_DIRT)) {
+                if (!world.isClient) {
+                    world.playSound(null, blockPos, ModSounds.FISH_DUST_USE, SoundCategory.AMBIENT);
+                    world.setBlockState(blockPos, Blocks.PODZOL.getDefaultState());
+                    context.getStack().decrement(1);
+                }
+                context.getPlayer().swingHand(context.getHand());
+            }
+
+
             BlockState blockState = world.getBlockState(blockPos);
             boolean bl = blockState.isSideSolidFullSquare(world, blockPos, context.getSide());
             if (bl && useOnGround(context.getStack(), world, blockPos2, context.getSide())) {
@@ -59,6 +85,9 @@ public class FishGemDustItem extends Item {
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         user.sendMessage(Text.literal("You used Fish Gem Dust on " + entity.getName().getString()), true);
         entity.getWorld().sendEntityStatus(entity, EntityStatuses.ADD_PORTAL_PARTICLES);
+
+        user.getWorld().playSound(null,entity.getBlockPos(), ModSounds.FISH_DUST_USE, SoundCategory.AMBIENT);
+        user.swingHand(hand);
 
 
 

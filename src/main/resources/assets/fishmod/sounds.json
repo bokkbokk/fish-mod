@@ -1,0 +1,14 @@
+{
+  "fish_curse": {
+    "subtitle": "sounds.fishmod.fish_curse",
+    "sounds": [
+      "fishmod:fish_curse"
+    ]
+  },
+  "fish_dust_use": {
+    "subtitle": "sounds.fishmod.fish_dust_use",
+    "sounds": [
+      "fishmod:fish_gem_dust_use"
+    ]
+  }
+}
