@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.GrassBlock;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
@@ -14,6 +15,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleGroup;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -83,8 +87,16 @@ public class FishGemDustItem extends Item {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        user.sendMessage(Text.literal("You used Fish Gem Dust on " + entity.getName().getString()), true);
-        entity.getWorld().sendEntityStatus(entity, EntityStatuses.ADD_PORTAL_PARTICLES);
+        //user.sendMessage(Text.literal("You used Fish Gem Dust on " + entity.getName().getString()), true);
+
+
+        entity.getWorld().addParticle(
+                ParticleTypes.HAPPY_VILLAGER,
+                entity.getX(),
+                entity.getY()+1.0,
+                entity.getZ(),
+                0.0,0.0,0.0
+        );
 
         user.getWorld().playSound(null,entity.getBlockPos(), ModSounds.FISH_DUST_USE, SoundCategory.AMBIENT);
         user.swingHand(hand);

@@ -33,6 +33,7 @@ public class TheEyeBlock extends ColoredFallingBlock {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         System.out.println("you used");
+        //player.setPosition(player.getX(),player.getY()+3.0,player.getZ());
 //        if (!player.isSneaking()) {
 //            player.sendMessage(Text.literal("You did the crouchnclick"));
 //            if (player.isHolding(Items.GLASS_BOTTLE)) {

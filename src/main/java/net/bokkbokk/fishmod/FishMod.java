@@ -146,8 +146,12 @@ public class FishMod implements ModInitializer {
 						ServerPlayerEntity servPlay = (ServerPlayerEntity) entity;
 						world.playSound(null,killedEntity.getBlockPos(),ModSounds.FISH_CURSE,SoundCategory.HOSTILE);
 						OverlayManager.enableRedOverlay(servPlay);
+
+
 						int soundDurationTicks = 137; // Replace with actual duration of FISH_CURSE in ticks
 						scheduleTask(() -> servPlay.kill(), soundDurationTicks);
+
+
 
 
 
