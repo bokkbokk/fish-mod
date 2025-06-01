@@ -16,16 +16,16 @@
     },
     "particle": {
       "options": {
-        "type": "bubble_pop"
+        "type": "happy_villager"
       },
       "probability": 0.001
     },
     "foliage_color": 10387789,
     "grass_color": 9470285,
-    "sky_color": 7972607,
-    "fog_color": 12638463,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "sky_color": -8674049,
+    "fog_color": -4138753,
+    "water_color": -12331538,
+    "water_fog_color": -16507085
   },
   "spawners": {
     "monster": [],
@@ -33,22 +33,23 @@
     "ambient": [],
     "axolotls": [],
     "underground_water_creature": [],
-    "water_creature": [
+    "water_creature": [],
+    "water_ambient": [
       {
         "type": "cod",
-        "weight": 10,
+        "weight": 30,
         "minCount": 4,
         "maxCount": 4
       },
       {
         "type": "salmon",
-        "weight": 10,
+        "weight": 20,
         "minCount": 4,
         "maxCount": 4
       },
       {
         "type": "tropical_fish",
-        "weight": 10,
+        "weight": 20,
         "minCount": 4,
         "maxCount": 4
       },
@@ -57,14 +58,6 @@
         "weight": 5,
         "minCount": 1,
         "maxCount": 1
-      }
-    ],
-    "water_ambient": [
-      {
-        "type": "experience_orb",
-        "weight": 3,
-        "minCount": 4,
-        "maxCount": 4
       }
     ],
     "misc": []
