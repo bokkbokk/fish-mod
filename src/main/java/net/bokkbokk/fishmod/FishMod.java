@@ -7,6 +7,8 @@ import net.bokkbokk.fishmod.item.ModItems;
 import net.bokkbokk.fishmod.networking.ModMessages;
 import net.bokkbokk.fishmod.networking.packet.RedScreenOnS2CPacket;
 import net.bokkbokk.fishmod.sound.ModSounds;
+import net.bokkbokk.fishmod.world.biome.ModBiomes;
+import net.bokkbokk.fishmod.world.dimension.ModDimensions;
 import net.bokkbokk.fishmod.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
@@ -90,10 +92,14 @@ public class FishMod implements ModInitializer {
 
 
 		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, fromWorld, toWorld) -> {
-			Float amb = toWorld.getDimension().ambientLight();
 
 
-			if (amb == 0.4f){
+//			System.out.println(toWorld.getRegistryKey());
+//			System.out.println(ModDimensions.FISHDIM_LEVEL_KEY);
+//			System.out.println(ModDimensions.FISH_DIM_TYPE);
+//			System.out.println(ModDimensions.FISHDIM_KEY);
+
+			if (toWorld.getRegistryKey().equals(ModDimensions.FISHDIM_LEVEL_KEY)){
 
 				if (player.getInventory().contains(Items.FISHING_ROD.getDefaultStack())) {
 					player.sendMessage(Text.literal("YOU DARE BRING THAT SHIT IN HERE?"));
@@ -132,10 +138,8 @@ public class FishMod implements ModInitializer {
 //			LOGGER.info(entity.getName().getString() + " just killed " + killedEntity.getName().getString());
 			if (killedEntity instanceof FishEntity) {
 				LOGGER.info(entity.getName().getString() + " just killed " + " A FISH!!!!!!!! " +killedEntity.getName().getString());
-				DimensionType dimType = entity.getWorld().getDimension();
-				Identifier effects = dimType.effects();
 
-				if (effects.equals(DimensionTypes.THE_END_ID)) {
+				if (world.getRegistryKey().equals(ModDimensions.FISHDIM_LEVEL_KEY)) {
 					LOGGER.info("yeah ts happened in the holy realm");
 
 					if (entity instanceof PlayerEntity) {
