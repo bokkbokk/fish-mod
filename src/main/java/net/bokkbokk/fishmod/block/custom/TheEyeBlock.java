@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ColoredFallingBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -14,7 +15,11 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.NetworkSyncedItem;
+import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
+import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ColorCode;
@@ -23,6 +28,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
 
 public class TheEyeBlock extends ColoredFallingBlock {
@@ -33,13 +39,17 @@ public class TheEyeBlock extends ColoredFallingBlock {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         System.out.println("you used");
-        //player.setPosition(player.getX(),player.getY()+3.0,player.getZ());
+        if (!world.isClient && player instanceof ServerPlayerEntity) {
+            ServerPlayerEntity servPlay = (ServerPlayerEntity) player;
+            servPlay.networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.ELDER_GUARDIAN_EFFECT, (int) 1.0f));
+            //player.setPosition(player.getX(),player.getY()+3.0,player.getZ());
 //        if (!player.isSneaking()) {
 //            player.sendMessage(Text.literal("You did the crouchnclick"));
 //            if (player.isHolding(Items.GLASS_BOTTLE)) {
 //                player.setStackInHand(Hand.MAIN_HAND, Items.HONEY_BOTTLE.getDefaultStack());
 //            }
 //        }
+        }
         return super.onUse(state, world, pos, player, hit);
     }
 

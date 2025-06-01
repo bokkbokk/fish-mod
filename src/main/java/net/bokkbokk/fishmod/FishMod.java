@@ -24,6 +24,7 @@ import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Items;
+import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -96,6 +97,7 @@ public class FishMod implements ModInitializer {
 
 				if (player.getInventory().contains(Items.FISHING_ROD.getDefaultStack())) {
 					player.sendMessage(Text.literal("YOU DARE BRING THAT SHIT IN HERE?"));
+					player.networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.ELDER_GUARDIAN_EFFECT, (int) 1.0f));
 
 				}
 
