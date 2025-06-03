@@ -22,6 +22,9 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().strength(4f)
                     .requiresTool().sounds(BlockSoundGroup.AMETHYST_BLOCK)));
 
+    public static final Block SECRET_BLOCK = registerBlock("secret_block",
+            new Block(AbstractBlock.Settings.create().strength(4f)));
+
 //    public static final Block EYE_BLOCK = registerBlock("eye_block",
 //            new Block(AbstractBlock.Settings.create().strength(1f)
 //                    .requiresTool().sounds(BlockSoundGroup.HONEY)));
@@ -39,6 +42,7 @@ public class ModBlocks {
                     AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sounds(BlockSoundGroup.HONEY).luminance(state -> 15)
             )
     );
+
 
 
 

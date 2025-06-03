@@ -1,6 +1,7 @@
 package net.bokkbokk.fishmod;
 
 import net.bokkbokk.fishmod.block.ModBlocks;
+import net.bokkbokk.fishmod.helper.ModConverters;
 import net.bokkbokk.fishmod.helper.OverlayManager;
 import net.bokkbokk.fishmod.item.ModItemGroups;
 import net.bokkbokk.fishmod.item.ModItems;
@@ -37,14 +38,14 @@ import net.minecraft.world.dimension.DimensionTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FishMod implements ModInitializer {
 
 	private final List<ScheduledTask> scheduledTasks = new LinkedList<>();
+	private final Map<ServerPlayerEntity, float[]> lockedViews = new ConcurrentHashMap<>();
+
 	public static final String MOD_ID = "fishmod";
 
 	// This logger is used to write text to the console and the log file.
@@ -68,6 +69,18 @@ public class FishMod implements ModInitializer {
 					it.remove();
 				}
 			}
+
+			for (Map.Entry<ServerPlayerEntity, float[]> entry : lockedViews.entrySet()) {
+				ServerPlayerEntity player = entry.getKey();
+				float[] angles = entry.getValue();
+				player.setYaw(angles[0]);
+				player.setPitch(angles[1]);
+				player.networkHandler.requestTeleport(
+						player.getX(), player.getY(), player.getZ(),
+						angles[0], angles[1]
+				);
+			}
+
 		});
 
 
@@ -149,8 +162,25 @@ public class FishMod implements ModInitializer {
 
 						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 400));
 						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 400));
+						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 400,4));
+
 						ServerPlayerEntity servPlay = (ServerPlayerEntity) entity;
-						world.playSound(null,killedEntity.getBlockPos(),ModSounds.FISH_CURSE,SoundCategory.HOSTILE);
+
+						world.playSound(
+								null, // null means all players near the position will hear it
+								player.getX(), player.getY(), player.getZ(), // player's current position
+								ModSounds.FISH_CURSE, // your custom sound
+								SoundCategory.MASTER,
+								1.0F, // volume
+								1.0F  // pitch
+						);
+
+						float yaw = ModConverters.getYaw(player,killedEntity.getBlockPos());
+						float pitch = ModConverters.getPitch(player,killedEntity.getBlockPos());
+
+						lockPlayerView(servPlay, yaw, pitch);
+
+
 						OverlayManager.enableRedOverlay(servPlay);
 
 
@@ -194,6 +224,7 @@ public class FishMod implements ModInitializer {
 
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer,newPlayer,alive) -> {
 			System.out.println("player respawned");
+			unlockPlayerView(newPlayer);
 			//ServerPlayNetworking.send(newPlayer, new ExampleC2SPacket(newPlayer.getBlockPos()));
 			if ((!Objects.equals(oldPlayer.getWorld(), newPlayer.getWorld()))) {
 				System.out.println("Old playerworld isnt equal to newplayerworld");
@@ -201,6 +232,10 @@ public class FishMod implements ModInitializer {
 			}
 
 		});
+
+
+
+
 
 
 
@@ -251,6 +286,15 @@ public class FishMod implements ModInitializer {
 			action.run();
 		}
 	}
+
+	public void lockPlayerView(ServerPlayerEntity player, float yaw, float pitch) {
+		lockedViews.put(player, new float[]{yaw, pitch});
+	}
+
+	public void unlockPlayerView(ServerPlayerEntity player) {
+		lockedViews.remove(player);
+	}
+
 
 
 

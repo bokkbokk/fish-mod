@@ -2,7 +2,7 @@
   "fish_curse": {
     "subtitle": "sounds.fishmod.fish_curse",
     "sounds": [
-      "fishmod:fish_curse"
+      "fishmod:fish_curse_louder"
     ]
   },
   "fish_dust_use": {
