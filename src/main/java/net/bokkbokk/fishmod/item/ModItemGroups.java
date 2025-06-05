@@ -35,6 +35,8 @@ public class ModItemGroups {
                         entries.add(ModBlocks.FISH_GEM_BLOCK);
                         entries.add(ModBlocks.FISH_ORE_BLOCK);
                         entries.add(ModBlocks.EYE_BLOCK);
+                        entries.add(ModBlocks.GEM_MAGMA_BLOCK);
+                        entries.add(ModBlocks.SECRET_BLOCK);
 
                     })
 

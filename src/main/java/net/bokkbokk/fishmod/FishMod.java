@@ -1,6 +1,8 @@
 package net.bokkbokk.fishmod;
 
 import net.bokkbokk.fishmod.block.ModBlocks;
+import net.bokkbokk.fishmod.entity.ModEntities;
+import net.bokkbokk.fishmod.entity.custom.CrawlerSmallEntity;
 import net.bokkbokk.fishmod.helper.ModConverters;
 import net.bokkbokk.fishmod.helper.OverlayManager;
 import net.bokkbokk.fishmod.item.ModItemGroups;
@@ -18,7 +20,9 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
+import net.kyrptonaught.customportalapi.event.CPASoundEventData;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -73,11 +77,14 @@ public class FishMod implements ModInitializer {
 			for (Map.Entry<ServerPlayerEntity, float[]> entry : lockedViews.entrySet()) {
 				ServerPlayerEntity player = entry.getKey();
 				float[] angles = entry.getValue();
-				player.setYaw(angles[0]);
-				player.setPitch(angles[1]);
+				// Add a small random shake to yaw and pitch
+				float shakeYaw = angles[0] + (float)((Math.random() - 0.5) * 4);   // ±2 degrees
+				float shakePitch = angles[1] + (float)((Math.random() - 0.5) * 4); // ±2 degrees
+				player.setYaw(shakeYaw);
+				player.setPitch(shakePitch);
 				player.networkHandler.requestTeleport(
 						player.getX(), player.getY(), player.getZ(),
-						angles[0], angles[1]
+						shakeYaw, shakePitch
 				);
 			}
 
@@ -98,6 +105,8 @@ public class FishMod implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 
 		ModSounds.registerSounds();
+
+		ModEntities.registerModEntities();
 
 		ModWorldGeneration.generateModWorldGen();
 
@@ -121,9 +130,9 @@ public class FishMod implements ModInitializer {
 				}
 
 				player.sendMessage(Text.literal("THE FISH WELCOMES YOU"), true);
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER,-1));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION,-1));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED,-1, 2));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER,-1,4,true,false,false));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION,-1,4,true,false,false));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED,-1, 2,true,false,false));
 
 
 
@@ -146,9 +155,6 @@ public class FishMod implements ModInitializer {
 
 
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
-
-//			user.sendMessage(Text.literal(entity.getName().getString()), true);
-//			LOGGER.info(entity.getName().getString() + " just killed " + killedEntity.getName().getString());
 			if (killedEntity instanceof FishEntity) {
 				LOGGER.info(entity.getName().getString() + " just killed " + " A FISH!!!!!!!! " +killedEntity.getName().getString());
 
@@ -159,10 +165,14 @@ public class FishMod implements ModInitializer {
 						PlayerEntity player = (PlayerEntity) entity;
 						player.sendMessage(Text.literal("YOU HAVE MADE A MISTAKE"),true);
 						LivingEntity livingEntity = (LivingEntity) entity;
+						livingEntity.clearStatusEffects();
 
-						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 400));
-						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 400));
-						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 400,4));
+						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 400,4,true,false,false));
+						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 400,4,true,false,false));
+						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 400,4,true,false,false));
+						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400,4,true,false,false));
+
+						// int duration, int amplifier, boolean ambient, boolean showParticles, boolean showIcon
 
 						ServerPlayerEntity servPlay = (ServerPlayerEntity) entity;
 
@@ -177,47 +187,13 @@ public class FishMod implements ModInitializer {
 
 						float yaw = ModConverters.getYaw(player,killedEntity.getBlockPos());
 						float pitch = ModConverters.getPitch(player,killedEntity.getBlockPos());
-
 						lockPlayerView(servPlay, yaw, pitch);
-
-
 						OverlayManager.enableRedOverlay(servPlay);
-
-
 						int soundDurationTicks = 137; // Replace with actual duration of FISH_CURSE in ticks
 						scheduleTask(() -> servPlay.kill(), soundDurationTicks);
-
-
-
-
-
-
-
-
-
-
-						
-
-
-
-
 					}
-
-
-
-
-
-
-
 				}
-
-
-
-
-
-
 			}
-			//return Ac
 		});
 
 
@@ -260,10 +236,18 @@ public class FishMod implements ModInitializer {
 					//}
 //					return true;
 				})
+				.registerPostTPPortalAmbience(player -> new CPASoundEventData(
+						ModSounds.DIM_ENTRY, // Your custom sound event
+						1.0F,                        // Volume
+						1.0F                         // Pitch
+				))
 
 
 
 				.registerPortal();
+
+
+		FabricDefaultAttributeRegistry.register(ModEntities.CRAWLER_SMALL, CrawlerSmallEntity.createAttributes());
 
 
 

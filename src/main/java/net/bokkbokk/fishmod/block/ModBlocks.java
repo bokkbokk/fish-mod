@@ -1,7 +1,9 @@
 package net.bokkbokk.fishmod.block;
 
 import net.bokkbokk.fishmod.FishMod;
+import net.bokkbokk.fishmod.block.custom.BetterBubblesBlock;
 import net.bokkbokk.fishmod.block.custom.FishPortalBlock;
+import net.bokkbokk.fishmod.block.custom.GemMagmaBlock;
 import net.bokkbokk.fishmod.block.custom.TheEyeBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
@@ -22,8 +24,21 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().strength(4f)
                     .requiresTool().sounds(BlockSoundGroup.AMETHYST_BLOCK)));
 
+    public static final Block GEM_MAGMA_BLOCK = registerBlock("gem_magma_block",
+            new GemMagmaBlock(MagmaBlock.Settings.create().instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool().luminance(state -> 3).strength(0.5f)
+                    .postProcess(Blocks::always).emissiveLighting(Blocks::always)
+                    .ticksRandomly()
+
+            ));
+
+
+
     public static final Block SECRET_BLOCK = registerBlock("secret_block",
             new Block(AbstractBlock.Settings.create().strength(4f)));
+
+    public static final Block BETTER_BUBBLE_BLOCK = registerBlock("better_bubble_block",
+            new BetterBubblesBlock(AbstractBlock.Settings.create().mapColor(MapColor.WATER_BLUE).replaceable().noCollision().dropsNothing().pistonBehavior(PistonBehavior.DESTROY).liquid().sounds(BlockSoundGroup.INTENTIONALLY_EMPTY)));
 
 //    public static final Block EYE_BLOCK = registerBlock("eye_block",
 //            new Block(AbstractBlock.Settings.create().strength(1f)

@@ -1,11 +1,7 @@
-package net.bokkbokk.fishmod.entity;
+package net.bokkbokk.fishmod.entity.custom;
 
-import net.minecraft.block.AbstractFireBlock;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 public class SafeLightning extends LightningEntity {

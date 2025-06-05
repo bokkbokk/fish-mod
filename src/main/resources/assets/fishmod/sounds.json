@@ -10,5 +10,23 @@
     "sounds": [
       "fishmod:fish_gem_dust_use"
     ]
+  },
+  "dim_entry": {
+    "subtitle": "sounds.fishmod.fish_dim_entry",
+    "sounds": [
+      "fishmod:fishdim_entry"
+    ]
+  },
+  "fish_dim_loop": {
+    "subtitle": "sounds.fishmod.fish_dim_loop",
+    "sounds": [
+      "fishmod:ambient_fishdim_loop"
+    ]
+  },
+  "crawler_small_hit": {
+    "subtitle": "sounds.fishmod.crawlerhit",
+    "sounds": [
+      "fishmod:crawler_hit"
+    ]
   }
 }

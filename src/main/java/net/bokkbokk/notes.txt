@@ -1,6 +1,6 @@
 
 
-
+//reminder for me tommorow, crawler in, but backwards and walking anim broken, likjely has to do with the getpart method i thinl
 
 
 

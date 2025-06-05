@@ -1,4 +1,4 @@
-package net.bokkbokk.fishmod.entity;
+package net.bokkbokk.fishmod.entity.custom;
 
 import net.bokkbokk.fishmod.FishMod;
 import net.minecraft.block.*;

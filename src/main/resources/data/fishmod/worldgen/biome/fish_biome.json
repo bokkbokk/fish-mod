@@ -3,7 +3,7 @@
   "temperature": 0.5,
   "downfall": 0.5,
   "effects": {
-    "ambient_sound": "ambient.underwater.loop",
+    "ambient_sound": "fishmod:fish_dim_loop",
     "additions_sound": {
       "sound": "ambient.underwater.loop.additions",
       "tick_chance": 0.0111
@@ -16,7 +16,7 @@
     },
     "particle": {
       "options": {
-        "type": "happy_villager"
+        "type": "wax_off"
       },
       "probability": 0.001
     },

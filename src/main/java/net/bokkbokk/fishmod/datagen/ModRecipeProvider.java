@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
 
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -39,6 +40,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .offerTo(recipeExporter);
 
         offerStonecuttingRecipe(recipeExporter,RecipeCategory.MISC,ModItems.FISH_GEM_DUST,ModItems.PROCESSED_FISH_GEMS);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC,ModBlocks.GEM_MAGMA_BLOCK)
+                .input(Items.MAGMA_BLOCK)
+                .input(ModItems.FISH_GEM_DUST)
+                .criterion(hasItem(ModItems.FISH_GEM_DUST), conditionsFromItem(ModItems.FISH_GEM_DUST))
+                .offerTo(recipeExporter);
 
     }
 }
